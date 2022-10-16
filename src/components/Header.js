@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ReactComponent as CartIcon } from "../images/icon-cart.svg";
 
 function Header() {
   return (
@@ -10,7 +11,7 @@ function Header() {
         <img src={process.env.PUBLIC_URL + `/images/logo.svg`} />
       </StLogoImg>
       <StCartButton>
-        <img src={process.env.PUBLIC_URL + `/images/icon-cart.svg`} />
+        <CartIcon />
       </StCartButton>
       <StProfileImg>
         <img src={process.env.PUBLIC_URL + `/images/image-avatar.png`} />
@@ -22,6 +23,8 @@ function Header() {
 export default Header;
 
 const BarContainer = styled.div`
+  background: var(--base--white);
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -33,7 +36,7 @@ const BarContainer = styled.div`
   height: 4.5rem;
 
   top: 0;
-
+  z-index: 5;
   box-sizing: border-box;
 
   @media screen and (min-width: 375px) {
@@ -86,13 +89,19 @@ const StCartButton = styled.button`
   height: 1.25rem;
   cursor: pointer;
 
-  & img,
   & svg,
   & path {
     pointer-events: none;
   }
 
+  & path {
+    fill: #69707d;
+  }
+
   @media screen and (min-width: 375px) {
+    & path {
+      fill: #000000;
+    }
   }
 `;
 

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Layout from "./layout";
+import Layout from "./layout/layout";
+import { ReactComponent as CartIcon } from "./images/icon-cart.svg";
+import { ReactComponent as PlusIcon } from "./images/icon-plus.svg";
+import { ReactComponent as MinusIcon } from "./images/icon-minus.svg";
 
 function App() {
   const [imageIndex, setImageIndex] = useState(1);
@@ -9,22 +12,24 @@ function App() {
   //   process.env.PUBLIC_URL + `/images/image-product-${imageIndex}.jpg`
   // );
 
-  function moveToPreviousImage() {
-    if (imageIndex === 1) {
-      setImageIndex(4);
-    } else {
-      setImageIndex(imageIndex - 1);
+  //change slice image
+  function changeToSliceImage(int) {
+    if (int === 1) {
+      if (imageIndex === 4) {
+        return setImageIndex(1);
+      } else {
+        return setImageIndex(imageIndex + 1);
+      }
+    } else if (int === -1) {
+      if (imageIndex === 1) {
+        return setImageIndex(4);
+      } else {
+        return setImageIndex(imageIndex - 1);
+      }
     }
   }
 
-  function moveToNextImage() {
-    if (imageIndex === 4) {
-      setImageIndex(1);
-    } else {
-      setImageIndex(imageIndex + 1);
-    }
-  }
-
+  //change item count
   function changeItemCount(int) {
     if (int === -1 && itemCount === 0) {
       return;
@@ -43,12 +48,13 @@ function App() {
                 process.env.PUBLIC_URL +
                 `/images/image-product-${imageIndex}.jpg`
               }
+              alt=""
             />
           </StDetailImage>
-          <StMoveButton onClick={moveToPreviousImage}>
+          <StMoveButton onClick={() => changeToSliceImage(-1)}>
             <img src={process.env.PUBLIC_URL + `/images/icon-previous.svg`} />
           </StMoveButton>
-          <StMoveButton right={0} onClick={moveToNextImage}>
+          <StMoveButton right={0} onClick={() => changeToSliceImage(1)}>
             <img src={process.env.PUBLIC_URL + `/images/icon-next.svg`} />
           </StMoveButton>
           <StImageThumbnailList></StImageThumbnailList>
@@ -70,15 +76,15 @@ function App() {
           </StPriceBox>
           <StCountBox>
             <StChangeCountBtn onClick={() => changeItemCount(-1)}>
-              <img src={process.env.PUBLIC_URL + `/images/icon-minus.svg`} />
+              <MinusIcon />
             </StChangeCountBtn>
             <StCountLabel>{itemCount}</StCountLabel>
             <StChangeCountBtn onClick={() => changeItemCount(1)}>
-              <img src={process.env.PUBLIC_URL + `/images/icon-plus.svg`} />
+              <PlusIcon />
             </StChangeCountBtn>
           </StCountBox>
           <StAddToCartBtn>
-            <img src={process.env.PUBLIC_URL + `/images/icon-cart.svg`} />
+            <CartIcon />
             Add to cart
           </StAddToCartBtn>
         </StDetailBox>
@@ -241,16 +247,12 @@ const StChangeCountBtn = styled.button`
   outline: none;
   padding: none;
   margin: 1rem;
+
+  transition: ease 0.2s;
   cursor: pointer;
 
-  & img {
-    color: green;
-  }
-
-  &:hover {
-    & svg {
-      stroke: red;
-    }
+  &:hover path {
+    fill: hsl(26, 100%, 74%);
   }
 `;
 
@@ -260,7 +262,8 @@ const StCountLabel = styled.span`
 
   margin: auto;
 `;
-
+// fill="#69707D"
+// fill-rule="nonzero"
 const StAddToCartBtn = styled.button`
   background: var(--base--orange);
 
@@ -279,14 +282,19 @@ const StAddToCartBtn = styled.button`
   padding: 1rem 0;
   margin: 1rem 0;
 
+  transition: ease 0.1s;
   cursor: pointer;
 
-  & img {
+  & svg {
     margin: 0 0.5rem;
   }
 
-  & svg path {
-    fill: #ffffff !important;
+  & path {
+    fill: white;
+  }
+
+  &:hover {
+    background: hsl(26, 100%, 74%);
   }
 `;
 
