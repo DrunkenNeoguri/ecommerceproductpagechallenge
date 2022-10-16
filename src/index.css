@@ -1,0 +1,42 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
+
+:root {
+  --base--orange: hsl(26, 100%, 55%);
+  --subBase--orange: hsl(25, 100%, 94%);
+
+  --mainHead-blue: hsl(220, 13%, 13%);
+  --mainP--blue: hsl(219, 9%, 45%);
+  --basePrice--blue: hsl(220, 14%, 75%);
+  --countBtn--white: hsl(223, 64%, 98%);
+  --base--white: hsl(0, 0%, 100%);
+  --modalBG--black: hsla(0, 0%, 0%, 0.75);
+}
+
+* {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
