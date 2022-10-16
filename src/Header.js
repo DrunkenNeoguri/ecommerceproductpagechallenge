@@ -18,7 +18,7 @@ function Header() {
     </BarContainer>
   );
 }
-
+//Collections Men Women About Contact
 export default Header;
 
 const BarContainer = styled.div`
@@ -99,12 +99,15 @@ const StCartButton = styled.button`
 const StProfileImg = styled.button`
   background: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
 
   border: none;
   outline: none;
   border-radius: 50%;
   padding: 0;
-  margin: 1rem;
+  margin: 1rem 1rem 1rem 0.5rem;
+  overflow: hidden;
 
   height: 1.5rem;
   width: 1.5rem;
@@ -116,6 +119,10 @@ const StProfileImg = styled.button`
     width: 1.5rem;
   }
 
+  &:hover {
+    border: 2px solid var(--base--orange);
+  }
+
   @media screen and (min-width: 375px) {
     height: 3rem;
     width: 3rem;
@@ -123,6 +130,10 @@ const StProfileImg = styled.button`
       pointer-events: none;
       height: 3rem;
       width: 3rem;
+    }
+
+    &:hover {
+      border: 3px solid var(--base--orange);
     }
   }
 `;
