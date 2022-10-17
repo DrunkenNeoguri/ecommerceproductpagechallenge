@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Layout from "./layout/layout";
 import { ReactComponent as CartIcon } from "./images/icon-cart.svg";
 import { ReactComponent as PlusIcon } from "./images/icon-plus.svg";
 import { ReactComponent as MinusIcon } from "./images/icon-minus.svg";
+import { ReactComponent as PreviousIcon } from "./images/icon-previous.svg";
+import { ReactComponent as NextIcon } from "./images/icon-next.svg";
+import { useRecoilState } from "recoil";
+import { cartState } from "./atoms/atoms";
+
+//https://vaadarsh8178.medium.com/handling-custom-svgs-in-react-using-styled-components-30d2739ff4cb
 
 function App() {
   const [imageIndex, setImageIndex] = useState(1);
-  const [itemCount, setItemCount] = useState(0);
-  // const [nowImage, setNowImage] = useState(
-  //   process.env.PUBLIC_URL + `/images/image-product-${imageIndex}.jpg`
-  // );
+  const [itemCount, setItemCount] = useState(1);
+  const [fadeState, setFadeState] = useState("fadeout");
+  const [addCart, setAddCart] = useRecoilState(cartState);
+
+  //fade inout message setting
+  useEffect(() => {
+    if (fadeState === "fadeout") {
+      return;
+    }
+    if (fadeState === "fadein") {
+      setTimeout(() => setFadeState("fadeout"), 1500);
+    }
+  }, [fadeState]);
+
+  // initial data -> receive App func's props?
+  const initialProductData = {
+    company: "Sneaker Company",
+    itemImage: process.env.PUBLIC_URL + `/images/image-product-1-thumbnail.jpg`,
+    products: "Fall Limited Edition Sneakers",
+    originPrice: 250.0,
+    nowPrice: 125.0,
+    discountRate: "50%",
+  };
 
   //change slice image
   function changeToSliceImage(int) {
@@ -31,15 +56,105 @@ function App() {
 
   //change item count
   function changeItemCount(int) {
-    if (int === -1 && itemCount === 0) {
+    if (int === -1 && itemCount === 1) {
       return;
     } else {
       return setItemCount(itemCount + int);
     }
   }
 
+  // add to cart func
+  function addToCart() {
+    setAddCart([
+      ...addCart,
+      {
+        id: new Date().getTime(),
+        products: initialProductData.products,
+        itemImage: initialProductData.itemImage,
+        price: initialProductData.nowPrice,
+        count: itemCount,
+      },
+    ]);
+    setItemCount(1);
+    if (fadeState !== "fadein") {
+      setFadeState("fadein");
+    }
+
+    /** legacy code */
+    // const shopItemList = [...addCart];
+    // // if itemCount isn't 0
+    // if (itemCount !== 0) {
+    //   // if the itemlist is not empty
+    //   if (shopItemList.length !== 0) {
+    //     const itemIdx = shopItemList.findIndex(
+    //       (element) => element.products === initialProductData.products
+    //     );
+    //     // if the user already add items into the itemlist
+    //     if (itemIdx !== -1) {
+    //       shopItemList[itemIdx] = {
+    //         products: initialProductData.products,
+    //         itemImage: initialProductData.itemImage,
+    //         price: initialProductData.nowPrice,
+    //         count: itemCount,
+    //       };
+    //       setAddCart(shopItemList);
+    //       // if the user don't add this item
+    //     } else {
+    //       setAddCart([
+    //         ...shopItemList,
+    //         {
+    //           products: initialProductData.products,
+    //           itemImage: initialProductData.itemImage,
+    //           price: initialProductData.nowPrice,
+    //           count: itemCount,
+    //         },
+    //       ]);
+    //     }
+    //     // if the itemlist is empty
+    //   } else {
+    //     setAddCart([
+    //       ...shopItemList,
+    //       {
+    //         products: initialProductData.products,
+    //         itemImage: initialProductData.itemImage,
+    //         price: initialProductData.nowPrice,
+    //         count: itemCount,
+    //       },
+    //     ]);
+    //   }
+    //   // if itemCount is 0
+    // } else {
+    //   if (shopItemList.length !== 0) {
+    //     const newCartList = [...shopItemList].filter(
+    //       (elem) => elem.products !== initialProductData.products
+    //     );
+    //     if (newCartList.length === 0) {
+    //       setAddCart([]);
+    //     } else {
+    //       setAddCart(newCartList);
+    //     }
+    //   } else {
+    //     setAddCart([
+    //       ...shopItemList,
+    //       {
+    //         products: initialProductData.products,
+    //         itemImage: initialProductData.itemImage,
+    //         price: initialProductData.nowPrice,
+    //         count: itemCount,
+    //       },
+    //     ]);
+    //   }
+    // }
+    // setItemCount(1);
+  }
+
   return (
     <Layout>
+      {fadeState === "fadein" ? (
+        <StNoticeMessage>Products successly add in cart.</StNoticeMessage>
+      ) : (
+        <></>
+      )}
       <StMainContainer role="main">
         <StImageBox>
           <StDetailImage>
@@ -52,16 +167,16 @@ function App() {
             />
           </StDetailImage>
           <StMoveButton onClick={() => changeToSliceImage(-1)}>
-            <img src={process.env.PUBLIC_URL + `/images/icon-previous.svg`} />
+            <PreviousIcon />
           </StMoveButton>
           <StMoveButton right={0} onClick={() => changeToSliceImage(1)}>
-            <img src={process.env.PUBLIC_URL + `/images/icon-next.svg`} />
+            <NextIcon />
           </StMoveButton>
           <StImageThumbnailList></StImageThumbnailList>
         </StImageBox>
         <StDetailBox>
-          <StCompanyLabel>Sneaker Company</StCompanyLabel>
-          <StProductsLabel>Fall Limited Edition Sneakers</StProductsLabel>
+          <StCompanyLabel>{initialProductData.company}</StCompanyLabel>
+          <StProductsLabel>{initialProductData.products}</StProductsLabel>
           <StDetailLabel>
             These low-profile sneakers are your perfect casual wear companion.
             Featuring a durable rubber outer sole, they’ll withstand everything
@@ -69,10 +184,12 @@ function App() {
           </StDetailLabel>
           <StPriceBox>
             <StNowPriceDiv>
-              <label>$125.00</label>
-              <div>50%</div>
+              <label>${initialProductData.nowPrice.toFixed(2)}</label>
+              <div>{initialProductData.discountRate}</div>
             </StNowPriceDiv>
-            <StOriginPriceDiv>$250.00</StOriginPriceDiv>
+            <StOriginPriceDiv>
+              ${initialProductData.originPrice.toFixed(2)}
+            </StOriginPriceDiv>
           </StPriceBox>
           <StCountBox>
             <StChangeCountBtn onClick={() => changeItemCount(-1)}>
@@ -83,7 +200,7 @@ function App() {
               <PlusIcon />
             </StChangeCountBtn>
           </StCountBox>
-          <StAddToCartBtn>
+          <StAddToCartBtn onClick={addToCart}>
             <CartIcon />
             Add to cart
           </StAddToCartBtn>
@@ -91,10 +208,11 @@ function App() {
       </StMainContainer>
       <StAttribution role="contentinfo">
         Challenge by{" "}
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
+        <a href="https://www.frontendmentor.io?ref=challenge">
           Frontend Mentor
         </a>
-        . Coded by <a href="#">develop_neoguri</a>.
+        . Coded by{" "}
+        <a href="https://github.com/DrunkenNeoguri">develop_neoguri</a>.
       </StAttribution>
     </Layout>
   );
@@ -102,6 +220,7 @@ function App() {
 
 export default App;
 
+// base component
 const StMainContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -114,6 +233,7 @@ const StMainContainer = styled.section`
   }
 `;
 
+// image component
 const StImageBox = styled.section`
   display: flex;
   flex-direction: column;
@@ -153,12 +273,17 @@ const StMoveButton = styled.button`
   cursor: pointer;
   transform: translateY(350%);
 
+  &:hover path {
+    stroke: var(--base--orange);
+  }
+
   @media screen and (min-width: 375px) {
   }
 `;
 
 const StImageThumbnailList = styled.div``;
 
+// detail infomation component
 const StDetailBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -175,7 +300,7 @@ const StCompanyLabel = styled.label`
 `;
 
 const StProductsLabel = styled.label`
-  color: var(--mainHead-blue);
+  color: var(--mainHead--blue);
   font-weight: 700;
   font-size: 1.7rem;
   line-height: 1.1;
@@ -226,9 +351,10 @@ const StOriginPriceDiv = styled.div`
   font-size: 1rem;
   text-decoration: line-through;
 
-  margin: 0 0 0 auto;
+  margin: 0 0.5rem 0 auto;
 `;
 
+// count button
 const StCountBox = styled.div`
   background: var(--countBtn--white);
   display: flex;
@@ -262,8 +388,8 @@ const StCountLabel = styled.span`
 
   margin: auto;
 `;
-// fill="#69707D"
-// fill-rule="nonzero"
+
+// add to cart button
 const StAddToCartBtn = styled.button`
   background: var(--base--orange);
 
@@ -298,7 +424,8 @@ const StAddToCartBtn = styled.button`
   }
 `;
 
-const StAttribution = styled.div`
+//attribution component
+const StAttribution = styled.footer`
   font-size: 11px;
   text-align: center;
   margin: 1rem 0;
@@ -307,4 +434,26 @@ const StAttribution = styled.div`
     font-size: 11px;
     color: hsl(228, 45%, 44%);
   }
+`;
+
+// notice message component
+const StNoticeMessage = styled.div`
+  background: hsla(0, 0%, 0%, 0.75);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  color: var(--base--white);
+  font-weight: 700;
+
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 40vh 0;
+
+  z-index: 20;
+
+  transform: translateX(9%);
 `;
