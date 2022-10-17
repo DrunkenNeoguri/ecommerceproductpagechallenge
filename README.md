@@ -31,7 +31,9 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![mobile version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
+
+! PC version is now challenging...
 
 ### Links
 
@@ -51,8 +53,6 @@ Users should be able to:
 ### What I learned
 
 - [How To Change svg properties in React Component](http://t.co/MrQaQU8YSC)
-- [Array.prototype.findIndex()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
-- [Number.prototype.toFixed()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed)
 - [Getting Started to Recoil](https://recoiljs.org/docs/introduction/getting-started)
 
 ### Continued development
