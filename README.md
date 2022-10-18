@@ -1,5 +1,7 @@
 # Frontend Mentor - E-commerce product page solution
 
+**!!! This site is optimized for 1440x900 resolution on PC.**
+
 ## Table of contents
 
 - [Overview](#overview)

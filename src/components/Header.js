@@ -260,6 +260,10 @@ const StModalBackground = styled.button`
   display: block;
   position: absolute;
 
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
   width: 100%;
   height: 100vh;
 

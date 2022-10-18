@@ -6,6 +6,7 @@ import { ReactComponent as PlusIcon } from "./images/icon-plus.svg";
 import { ReactComponent as MinusIcon } from "./images/icon-minus.svg";
 import { ReactComponent as PreviousIcon } from "./images/icon-previous.svg";
 import { ReactComponent as NextIcon } from "./images/icon-next.svg";
+import { ReactComponent as CloseIcon } from "./images/icon-close.svg";
 import { useRecoilState } from "recoil";
 import { cartState } from "./atoms/atoms";
 
@@ -15,6 +16,7 @@ function App() {
   const [imageIndex, setImageIndex] = useState(1);
   const [itemCount, setItemCount] = useState(1);
   const [fadeState, setFadeState] = useState("fadeout");
+  const [openPopUp, setOpenPopUp] = useState(false);
   const [addCart, setAddCart] = useRecoilState(cartState);
   const thumbnailList = [
     process.env.PUBLIC_URL + `/images/image-product-1-thumbnail.jpg`,
@@ -158,6 +160,13 @@ function App() {
     // setItemCount(1);
   }
 
+  function expandItemImage() {
+    if (window.innerWidth < 960) {
+      return;
+    }
+    setOpenPopUp(!openPopUp);
+  }
+
   return (
     <Layout>
       {fadeState === "fadein" ? (
@@ -165,9 +174,55 @@ function App() {
       ) : (
         <></>
       )}
+
+      {openPopUp === true ? (
+        <StPopUpBox>
+          <StBackGroundShadow onClick={expandItemImage}></StBackGroundShadow>
+          <StExpendImageBox>
+            <StCloseButton onClick={expandItemImage}>
+              <CloseIcon />
+            </StCloseButton>
+            <StExpendImage>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  `/images/image-product-${imageIndex}.jpg`
+                }
+                alt=""
+              />
+            </StExpendImage>
+            <StPopUpMoveButton
+              left="-2rem"
+              onClick={() => changeToSliceImage(-1)}>
+              <PreviousIcon />
+            </StPopUpMoveButton>
+
+            <StPopUpMoveButton
+              right="-2rem"
+              onClick={() => changeToSliceImage(1)}>
+              <NextIcon />
+            </StPopUpMoveButton>
+            <StImageThumbnailList
+              justifyContent="space-around"
+              style={{ marginTop: "1rem" }}>
+              {thumbnailList.map((elem, idx) => (
+                <StExpendThumbnailImage
+                  key={idx + 1}
+                  onClick={() => changeImageIndex(idx)}
+                  active={idx + 1 === imageIndex ? true : false}>
+                  <img src={elem} alt="" />
+                </StExpendThumbnailImage>
+              ))}
+            </StImageThumbnailList>
+          </StExpendImageBox>
+        </StPopUpBox>
+      ) : (
+        <></>
+      )}
+
       <StMainContainer role="main">
         <StImageBox>
-          <StDetailImage>
+          <StDetailImage onClick={expandItemImage}>
             <img
               src={
                 process.env.PUBLIC_URL +
@@ -185,7 +240,7 @@ function App() {
             <NextIcon />
           </StMoveButton>
 
-          <StImageThumbnailList>
+          <StImageThumbnailList justifyContent="space-between">
             {thumbnailList.map((elem, idx) => (
               <StThumbnailImage
                 key={idx + 1}
@@ -283,11 +338,14 @@ const StDetailImage = styled.div`
 
   & img {
     width: 100%;
+    pointer-events: none;
   }
 
   @media screen and (min-width: 960px) {
     border-radius: 1rem;
     max-width: 28rem;
+
+    cursor: pointer;
 
     & img {
       max-width: 28rem;
@@ -328,12 +386,16 @@ const StMoveButton = styled.button`
 `;
 
 const StImageThumbnailList = styled.div`
-  display: flex;
+  display: none;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: ${(props) => props.justifyContent};
 
   margin-top: 2rem;
   width: 100%;
+  display: none;
+  @media screen and (min-width: 960px) {
+    display: flex;
+  }
 `;
 
 const StThumbnailImage = styled.div`
@@ -356,11 +418,15 @@ const StThumbnailImage = styled.div`
 
   cursor: pointer;
   & img {
-    width: 5.5rem;
-    height: 5.5rem;
+    width: ${(props) => props.size || "5.5rem"};
+    height: ${(props) => props.size || "5.5rem"};
     border-radius: 1rem;
     pointer-events: none;
     z-index: -1;
+  }
+
+  &:hover {
+    background: hsla(25, 100%, 94%, 0.7);
   }
 `;
 
@@ -576,6 +642,149 @@ const StNoticeMessage = styled.div`
   right: 0;
   max-width: 300px;
   box-sizing: border-box;
+`;
 
-  /* transform: translateX(9%); */
+// popup components
+
+const StPopUpBox = styled.section`
+  background: none;
+
+  display: none;
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+
+  @media screen and (min-width: 960px) {
+    display: block;
+  }
+`;
+
+const StBackGroundShadow = styled.button`
+  background: var(--modalBG--black);
+
+  display: block;
+  position: fixed;
+
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+
+  left: 0;
+  right: 0;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 25;
+
+  cursor: pointer;
+`;
+
+const StExpendImageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+
+  margin: auto;
+  margin-top: 6rem;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 34rem;
+
+  z-index: 26;
+`;
+
+const StExpendImage = styled.div`
+  display: block;
+
+  border-radius: 1rem;
+  margin: auto;
+  & img {
+    border-radius: 1rem;
+    width: 34rem;
+    height: 34rem;
+    pointer-events: none;
+  }
+`;
+
+const StCloseButton = styled.button`
+  background: none;
+
+  border: none;
+  outline: none;
+  padding: none;
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+
+  cursor: pointer;
+
+  & svg,
+  & path {
+    pointer-events: none;
+  }
+
+  &:hover path {
+    fill: var(--base--orange);
+  }
+`;
+
+const StExpendThumbnailImage = styled.div`
+  background: ${(props) =>
+    props.active === true ? "hsla(25, 100%, 94%, 0.7)" : "none"};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: ${(props) => (props.active === true ? "calc(5rem - 4px)" : "5rem")};
+  height: ${(props) => (props.active === true ? "calc(5rem - 4px)" : "5rem")};
+  border-radius: 1rem;
+  border: ${(props) =>
+    props.active === true ? "2px solid var(--base--orange)" : "none"};
+
+  overflow: hidden;
+
+  cursor: pointer;
+  & img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &:hover {
+    background: hsla(25, 100%, 94%, 0.7);
+  }
+`;
+
+const StPopUpMoveButton = styled.button`
+  background: var(--base--white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  margin: 0 1rem;
+  padding: 0;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  cursor: pointer;
+  transform: translateY(700%);
+
+  &:hover path {
+    stroke: var(--base--orange);
+  }
 `;
