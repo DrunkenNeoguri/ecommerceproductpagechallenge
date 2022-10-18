@@ -31,9 +31,11 @@ Users should be able to:
 
 ### Screenshot
 
+**Mobile Size**
 ![Mobile version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
 
-![PC Browser version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
+**PC Browser Size**
+![PC Browser version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_pc.gif?raw=true)
 
 ### Links
 
