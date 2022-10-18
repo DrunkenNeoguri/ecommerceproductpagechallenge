@@ -1,7 +1,7 @@
 {
   "homepage": "https://drunkenneoguri.github.io/ecommerceproductpagechallenge/",
   "name": "e-commerceproductpage",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
