@@ -15,11 +15,17 @@ export default Layout;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  margin: auto;
+
+  max-width: 415px;
+
   box-sizing: border-box;
 
-  @media screen and (min-width: 375px) {
+  @media screen and (min-width: 960px) {
     margin-top: 7rem;
-    max-width: 1440px;
-    margin: 0 5%;
+    max-width: 70rem;
+    margin: 0 auto;
   }
 `;

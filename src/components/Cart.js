@@ -86,19 +86,27 @@ const StContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
 
   border-radius: 0.5rem;
   padding: 0.5rem 0;
-  margin: 0 5%;
+  margin: 0 auto;
 
   width: 90%;
-  margin: 0 5%;
+  max-width: 415px;
 
   top: 5rem;
+  left: 0;
+  right: 0;
   z-index: 5;
   box-sizing: border-box;
   box-shadow: 0px 3px 10px 0px var(--modalBG--black);
+
+  @media screen and (min-width: 960px) {
+    z-index: 15;
+    max-width: 20rem;
+    margin: 1rem 0 0 auto;
+  }
 `;
 
 const StCartLabel = styled.label`
@@ -239,10 +247,12 @@ const StNoticeMessage = styled.div`
 
   border: none;
   border-radius: 1rem;
-  padding: 2rem;
-  margin: 40vh 0;
+  padding: 2rem 1rem;
+  margin: 40vh auto;
 
   z-index: 20;
-
-  transform: translateX(5%);
+  left: 0;
+  right: 0;
+  max-width: 300px;
+  box-sizing: border-box;
 `;

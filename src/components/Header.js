@@ -26,7 +26,7 @@ function Header() {
       {openMenu === true ? (
         <StMenuContainer>
           <StModalBackground onClick={openMenuBox}></StModalBackground>
-          <StMenuBox>
+          <StColumnMenuBox>
             <StCloseButton onClick={openMenuBox}>
               <CloseIcon />
             </StCloseButton>
@@ -35,7 +35,7 @@ function Header() {
             <StMenuButton>Women</StMenuButton>
             <StMenuButton>About</StMenuButton>
             <StMenuButton>Contact</StMenuButton>
-          </StMenuBox>
+          </StColumnMenuBox>
         </StMenuContainer>
       ) : (
         <></>
@@ -47,6 +47,13 @@ function Header() {
         <StLogoImg>
           <img src={process.env.PUBLIC_URL + `/images/logo.svg`} alt="" />
         </StLogoImg>
+        <StRowMenuBox>
+          <StTabButton>Collections</StTabButton>
+          <StTabButton>Men</StTabButton>
+          <StTabButton>Women</StTabButton>
+          <StTabButton>About</StTabButton>
+          <StTabButton>Contact</StTabButton>
+        </StRowMenuBox>
         <StCartButton active={openCart} onClick={openCartList}>
           <CartIcon onClick={() => openCartList} />
           {itemList.length > 0 ? (
@@ -81,21 +88,28 @@ const StBarContainer = styled.header`
 
   width: 100%;
   height: 4.5rem;
+  max-width: 415px;
 
   top: 0;
   z-index: 5;
   box-sizing: border-box;
 
-  @media screen and (min-width: 375px) {
-    height: 7rem;
-    width: 90%;
+  @media screen and (min-width: 960px) {
     border-bottom: 1px solid var(--basePrice--blue);
 
-    box-sizing: border-box;
+    margin: auto;
+
+    height: 7rem;
+    width: 90%;
+    max-width: 70rem;
   }
 `;
 
-const StLogoImg = styled.div``;
+const StLogoImg = styled.div`
+  @media screen and (min-width: 960px) {
+    margin-right: 2.5rem;
+  }
+`;
 
 const StBarButton = styled.button`
   background: none;
@@ -119,7 +133,7 @@ const StBarButton = styled.button`
     fill: var(--base--orange);
   }
 
-  @media screen and (min-width: 375px) {
+  @media screen and (min-width: 960px) {
     display: none;
   }
 `;
@@ -150,10 +164,8 @@ const StCartButton = styled.button`
       props.active === false ? "hsl(219,8.7%,45.1%)" : "var(--mainHead--blue)"};
   }
 
-  @media screen and (min-width: 375px) {
-    & path {
-      fill: #000000;
-    }
+  @media screen and (min-width: 960px) {
+    margin: 1rem 2rem 1rem auto;
   }
 `;
 
@@ -184,7 +196,7 @@ const StProfileImg = styled.button`
     border: 2px solid var(--base--orange);
   }
 
-  @media screen and (min-width: 375px) {
+  @media screen and (min-width: 960px) {
     height: 3rem;
     width: 3rem;
     & img {
@@ -228,9 +240,18 @@ const StMenuContainer = styled.div`
   position: fixed;
 
   width: 100%;
+  max-width: 415px;
   height: 100vh;
 
   z-index: 6;
+
+  @media screen and (min-width: 415px) {
+    border-left: 1px solid var(--basePrice--blue);
+  }
+
+  @media screen and (min-width: 960px) {
+    display: none;
+  }
 `;
 
 const StModalBackground = styled.button`
@@ -247,7 +268,7 @@ const StModalBackground = styled.button`
   cursor: pointer;
 `;
 
-const StMenuBox = styled.div`
+const StColumnMenuBox = styled.div`
   background: var(--base--white);
 
   display: flex;
@@ -297,5 +318,39 @@ const StMenuButton = styled.button`
 
   &:hover {
     color: var(--base--orange);
+  }
+`;
+
+// PC ver Menu bar
+
+const StRowMenuBox = styled.div`
+  display: none;
+  @media screen and (min-width: 960px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+`;
+
+const StTabButton = styled.button`
+  background: none;
+
+  color: var(--mainP--blue);
+
+  border: none;
+  outline: none;
+  margin: 1rem;
+  height: 7rem;
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--base--orange);
+  }
+
+  &:focus {
+    color: var(--mainHead--blue);
+    padding-top: 4px;
+    border-bottom: 3px solid var(--base--orange);
   }
 `;
