@@ -31,7 +31,7 @@ Users should be able to:
 
 ### Screenshot
 
-**Mobile Size**
+**Mobile Size**  
 ![Mobile version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
 
 **PC Browser Size**
