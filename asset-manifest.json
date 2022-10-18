@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ecommerceproductpagechallenge/static/css/main.63e99189.css",
-    "main.js": "/ecommerceproductpagechallenge/static/js/main.50890889.js",
+    "main.js": "/ecommerceproductpagechallenge/static/js/main.ecf1e94e.js",
     "index.html": "/ecommerceproductpagechallenge/index.html",
     "static/media/icon-delete.svg": "/ecommerceproductpagechallenge/static/media/icon-delete.1fd1f1f7d9f8ce5557b44ca3470a18b8.svg",
     "static/media/icon-cart.svg": "/ecommerceproductpagechallenge/static/media/icon-cart.539ec608f50e707c94d583ec11acf99d.svg",
@@ -12,10 +12,10 @@
     "static/media/icon-previous.svg": "/ecommerceproductpagechallenge/static/media/icon-previous.80616402c611cc0a6651d0b751da8a9b.svg",
     "static/media/icon-next.svg": "/ecommerceproductpagechallenge/static/media/icon-next.9621183a551a9985b4bd7536c9a69c66.svg",
     "main.63e99189.css.map": "/ecommerceproductpagechallenge/static/css/main.63e99189.css.map",
-    "main.50890889.js.map": "/ecommerceproductpagechallenge/static/js/main.50890889.js.map"
+    "main.ecf1e94e.js.map": "/ecommerceproductpagechallenge/static/js/main.ecf1e94e.js.map"
   },
   "entrypoints": [
     "static/css/main.63e99189.css",
-    "static/js/main.50890889.js"
+    "static/js/main.ecf1e94e.js"
   ]
 }
