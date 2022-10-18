@@ -31,14 +31,14 @@ Users should be able to:
 
 ### Screenshot
 
-![mobile version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
+![Mobile version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
 
-! PC version is now challenging...
+![PC Browser version](https://github.com/DrunkenNeoguri/ecommerceproductpagechallenge/blob/main/media/active_mobile.gif?raw=true)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/16th-challenge-article-preview-with-react-and-recoil-F7AW62PU4K](https://www.frontendmentor.io/solutions/16th-challenge-article-preview-with-react-and-recoil-F7AW62PU4K)
+- Live Site URL: [https://drunkenneoguri.github.io/ecommerceproductpagechallenge/](https://drunkenneoguri.github.io/ecommerceproductpagechallenge/)
 
 ## My process
 
@@ -59,6 +59,8 @@ Users should be able to:
 
 - make order and other menu item list page
 - maintain cart data when user use to refresh
+- make user profile page
+- more interactive feature animation
 
 ### Useful resources
 
@@ -67,7 +69,7 @@ Users should be able to:
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
+- github - [@develop_neoguri](https://github.com/DrunkenNeoguri)
 - Frontend Mentor - [@drunken_neoguri](https://www.frontendmentor.io/profile/DrunkenNeoguri)
 - Twitter - [@develop_neoguri](https://www.twitter.com/develop_neoguri)
 
